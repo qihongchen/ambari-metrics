@@ -69,11 +69,18 @@
     </snapshotRepository>
   </distributionManagement>
   <repositories>
+      <repository>
+      <id>hortonworks</id>
+      <name>hortonworks</name>
+      <url>https://repo.hortonworks.com/content/repositories/releases</url>
+    </repository>
+<!--
     <repository>
       <id>apache-hadoop</id>
       <name>hdp</name>
       <url>http://nexus-private.hortonworks.com/nexus/content/groups/public</url>
     </repository>
+-->
     <repository>
       <id>apache-snapshots</id>
       <name>snapshots</name>

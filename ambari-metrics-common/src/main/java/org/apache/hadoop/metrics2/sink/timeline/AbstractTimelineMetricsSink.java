@@ -332,6 +332,11 @@ public abstract class AbstractTimelineMetricsSink {
     }
 
     TimelineMetrics metricsToEmit = alignMetricsByMinuteMark(metrics);
+    for (TimelineMetric metric: metricsToEmit.getMetrics()) {
+      if (metric.getTimestamp() == 0L) {
+        metric.setTimestamp(metric.getStartTime());
+      }
+    }
 
     if (postAllCachedMetrics) {
       for (TimelineMetric timelineMetric : metricsPostCache.asMap().values()) {
@@ -343,6 +348,7 @@ public abstract class AbstractTimelineMetricsSink {
     if (validCollectorHost) {
       String jsonData = null;
       LOG.debug("EmitMetrics connectUrl = "  + connectUrl);
+      LOG.info("# of metrics send: " + metricsToEmit.getMetrics().size() + " from " + this.toString());
       try {
         jsonData = mapper.writeValueAsString(metricsToEmit);
       } catch (IOException e) {
